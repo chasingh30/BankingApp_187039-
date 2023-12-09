@@ -3,7 +3,7 @@ package org.example;
 
 interface RBI {
 //    float balance = 0.0f, fdBalance = 0.0f;
-    float loanROI = 0.01f,ccROI = 0.0f;
+    float loanROI = 0.01f,ccROI = 0.02f;
     void depositMoney() ;
     void withdrawMoney();
     void openFD();

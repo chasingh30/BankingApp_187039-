@@ -18,21 +18,23 @@ class AXIS implements RBI {
     }
 
 
+    @Override
     public void depositMoney() {
         float money = 0.0f;
         System.out.println("Enter the amount to deposit : ");
         try {
             money = Float.parseFloat(buff.readLine());
-            System.out.println(getBalance());
         } catch (IOException e) {
             e.printStackTrace();
         }
         balance += money;
     }
+    @Override
     public void withdrawMoney(){
         float withdraw = 0.0f;
         int countWithdrawal = 0;
         countWithdrawal++;
+        System.out.println("Enter the amount u want to withdraw: ");
         try {
             withdraw = Float.parseFloat(buff.readLine());
             if (countWithdrawal > 3)
@@ -41,11 +43,11 @@ class AXIS implements RBI {
             e.printStackTrace();
         }
         balance -= withdraw;
-        System.out.println(getBalance());//move to main;
     }
+    @Override
     public void openFD()
     {
-        float principal = 0.0f, ROI = 0.0f;
+        float principal = 0.0f, ROI = 0.05f;
         int time = 0;
         System.out.println("Enter deposit amount for FD: ");
         try {
@@ -67,9 +69,10 @@ class AXIS implements RBI {
         fdBalance = principal;
         System.out.println("Matured FD Balance is : " +fdBalance);
     }
+    @Override
     public void applyLoan() {//APPLY P*R*T)/100 AND give 1% to RBI;
         if(balance <= 2*minBalance)
-            System.out.println("Non-eleigible for loan");
+            System.out.println("Non-eligible for loan\nMinimum balance required to open the account: "+(2*minBalance));
         else //eligible for loan;
         {
             int loanType = 0;
@@ -110,11 +113,12 @@ class AXIS implements RBI {
                 e.printStackTrace();
             }
 
-            float interest = amount * ROI * (float) years / 100;
+            float interest = amount * ROI * (float) years;
             float rbiPay = loanROI * interest;
             System.out.println("Amount payable to rbi = " + rbiPay);
         }
     }
+    @Override
     public void applyCreditCard() {
         if(balance <= 2*minBalance)
             System.out.println("Not eligible for Credit Card");
@@ -136,6 +140,7 @@ class AXIS implements RBI {
             System.out.println("Amount payable to rbi = " + rbiPay);
         }
     }
+    @Override
     public float getBalance() {
         return balance;
     }
