@@ -26,14 +26,18 @@ public class Main {
     //CustomerName, customerEmail, customerAddress, customerGender, customerAadhar, customerPhone;
 
     public static void main(String[] args) {
-        Map<String, Customer> ibsCustomerMap = new HashMap<String, Customer>();
+        Map<String, Customer> ibsCustomerMap = new HashMap <>();
+        Map<String, RBI> iciciCustomer  = new HashMap<>();
+        Map<String, RBI> hdfcCustomer  = new HashMap<>();
+        Map<String, RBI> sbiCustomer  = new HashMap<>();
+        Map<String, RBI> axisCustomer  = new HashMap<>();
         RBI bank = null;
         Main obj = new Main();//only used for taking buffer nothing else..
         int enter = 0;
         while (true)
         {
             String aadhar = null;
-            System.out.println("Welcome to IBS\nSelect one of the following: \n1. Select a bank 2.exit");
+            System.out.println("Welcome to IBS\nSelect one of the following: \n1. Select a bank 2. Exit the program");
             try {
                 enter = Integer.parseInt(obj.buff.readLine());
             } catch (IOException e) {
@@ -112,23 +116,62 @@ public class Main {
                     {
                         switch (selectedBank) {
                             case 1:
-                                bank = new ICICI();
-                                System.out.println("Hello ICICI Customer :)\n" + aadhar);
+                                if(iciciCustomer.containsKey(aadhar))
+                                {
+                                    System.out.println("Hello" + aadhar + "you already have an a/c in ICICI Bank");
+                                    bank = iciciCustomer.get(aadhar);
+                                }
+                                else
+                                {
+                                    bank = new ICICI();
+                                    iciciCustomer.put(aadhar,bank);
+                                }
+                                System.out.println("Hello ICICI Customer :)" + aadhar);
                                 break;
                             case 2:
-                                bank = new HDFC();
-                                System.out.println("Hello HDFC Customer :)\n");
+                                if(hdfcCustomer.containsKey(aadhar))
+                                {
+                                    System.out.println("Hello" + aadhar + "you already have an a/c in HDFC Bank");
+                                    bank = hdfcCustomer.get(aadhar);
+                                }
+                                else
+                                {
+                                    bank = new HDFC();
+                                    hdfcCustomer.put(aadhar,bank);
+                                }
+
+                                System.out.println("Hello HDFC Customer :) " + aadhar);
                                 break;
                             case 3:
-                                bank = new SBI();
+                                if(sbiCustomer.containsKey(aadhar))
+                                {
+                                    System.out.println("Hello" + aadhar + "you already have an a/c in SBI Bank");
+                                    bank = sbiCustomer.get(aadhar);
+                                }
+                                else
+                                {
+                                    bank = new SBI();
+                                    sbiCustomer.put(aadhar, bank);
+                                }
                                 System.out.println("Hello SBI Customer :)\n");
                                 break;
                             case 4:
-                                bank = new AXIS();
-                                System.out.println("Hello AXIS Customer :)\n");
+                                if(axisCustomer.containsKey(aadhar))
+                                {
+                                    System.out.println("Hello" + aadhar + "you already have an a/c in AXIS Bank");
+                                    bank = axisCustomer.get(aadhar);
+                                }
+                                else
+                                {
+                                    bank = new AXIS();
+                                    axisCustomer.put(aadhar,bank);
+                                }
+                                System.out.println("Hello AXIS Customer :) \n");
                                 break;
-                            default:
+                            default: {
+                                System.out.println("Invalid Choice\n");
                                 break;
+                            }
                         }
                         while (true) {
                             int selectedOperation = 0;
@@ -139,10 +182,7 @@ public class Main {
                                 e.printStackTrace();
                             }
                             if (selectedOperation == 7)
-                            {
-
                                 break;
-                            }
                             switch (selectedOperation)
                             {
                                 case 1:
