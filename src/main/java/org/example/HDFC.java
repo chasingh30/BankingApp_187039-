@@ -28,6 +28,7 @@ class HDFC implements RBI {
             e.printStackTrace();
         }
         balance += money;
+        System.out.println(money + "deposited");
     }
     @Override
     public void withdrawMoney(){
@@ -42,7 +43,10 @@ class HDFC implements RBI {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        balance -= withdraw;
+        if(balance >= withdraw)
+            balance -= withdraw;
+        else
+            System.out.println("Insufficient Balance");
     }
     @Override
     public void openFD()

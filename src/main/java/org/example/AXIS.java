@@ -4,9 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-class AXIS implements RBI {
+public class AXIS implements RBI {
+
     float minBalance = 2000.0f;
-    float balance = 4000.0f,fdBalance = 0.0f;
+    public float balance = 4000.0f,fdBalance = 0.0f;
     BufferedReader buff;
     InputStreamReader isr;
     public AXIS()
@@ -28,6 +29,20 @@ class AXIS implements RBI {
             e.printStackTrace();
         }
         balance += money;
+        System.out.println(money + "deposited");
+    }
+
+//    @Override
+    public void depositMoneyTest(float money) {
+//        float money = 0.0f;
+        System.out.println("Enter the amount to deposit : ");
+//        try {
+//            money = Float.parseFloat(buff.readLine());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        balance += money;
+        System.out.println(money + "deposited");
     }
     @Override
     public void withdrawMoney(){
@@ -42,7 +57,10 @@ class AXIS implements RBI {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        balance -= withdraw;
+        if(balance >= withdraw)
+            balance -= withdraw;
+        else
+            System.out.println("Insufficient Balance");
     }
     @Override
     public void openFD()
