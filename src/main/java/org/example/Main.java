@@ -6,12 +6,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main extends Thread
 {
     BufferedReader buff;
     InputStreamReader isr;
-
+    Logger log;
     public Main()
     {
         if (isr == null) // abhi to null h but agr baad me we dont know kha se input aara h so its good practice to keep checks
@@ -19,6 +21,7 @@ public class Main extends Thread
         if (buff == null)
             buff = new BufferedReader(isr); // convert to buffer ..streamline har baar ab yhi use honge jha bhi input lena hoga baar baar
         // streamreader aur buffered reader ke objects nhi bnane pdenge.
+        log = Log.getInstance();
     }
     //CustomerName, customerEmail, customerAddress, customerGender, customerAadhar, customerPhone;
 
@@ -49,7 +52,7 @@ public class Main extends Thread
             }
             if(enter == 2)
             {
-                System.out.println("No. of IBS users\nICICI BANK : "+ iciciCustomer.size() + "\nHDFC BANK : "+ hdfcCustomer.size() + "\nSBI BANK : " + sbiCustomer.size() + "\nAXIS BANK : "+ axisCustomer.size());
+                log.log(Level.INFO, "No. of IBS users\nICICI BANK : "+ iciciCustomer.size() + "\nHDFC BANK : "+ hdfcCustomer.size() + "\nSBI BANK : " + sbiCustomer.size() + "\nAXIS BANK : "+ axisCustomer.size());
                 break;
             }
 
@@ -98,7 +101,7 @@ public class Main extends Thread
                         e.printStackTrace();
                     }
                     if (selectedBank == 5) {
-                        System.out.println("Logging you out of IBS...\n");
+                        log.log(Level.INFO, "Logging you out of IBS...\n");
                         break;
                     }
                     else//user selected a bank...
@@ -160,7 +163,7 @@ public class Main extends Thread
 
                                 break;
                             default: {
-                                System.out.println("Invalid Choice\n");
+                                log.log(Level.SEVERE, "Invalid Choice\n");
                                 break;
                             }
                         }
@@ -197,7 +200,7 @@ public class Main extends Thread
                                     System.out.println(bank.getBalance());
                                     break;
                                 default:
-                                    System.out.println("Invalid operation number\n");
+                                    log.log(Level.SEVERE, "Invalid operation number\n");
                             }
                         }
                     }

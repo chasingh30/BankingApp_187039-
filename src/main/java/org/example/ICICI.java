@@ -3,8 +3,12 @@ package org.example;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 class ICICI implements RBI {
+    Logger log;
     float minBalance = 2000.0f;
     float balance = 0.0f,fdBalance = 0.0f;
     BufferedReader buff;
@@ -15,20 +19,24 @@ class ICICI implements RBI {
             isr = new InputStreamReader(System.in);
         if(buff==null)
             buff = new BufferedReader(isr);
+        log = Log.getInstance();
     }
 
 
     @Override
-    public void depositMoney() {
+    public void depositMoney()
+    {
         float money = 0.0f;
         System.out.println("Enter the amount to deposit : ");
-        try {
+        try
+        {
             money = Float.parseFloat(buff.readLine());
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
         balance += money;
-        System.out.println(money + "deposited");
+        log.log(Level.INFO, money + "deposited in ICICI bank");
     }
     @Override
     public void withdrawMoney(){
@@ -46,7 +54,9 @@ class ICICI implements RBI {
         if(balance >= withdraw)
             balance -= withdraw;
         else
-            System.out.println("Insufficient Balance");
+        {
+            log.log(Level.INFO, "Insufficient Balance");
+        }
     }
     @Override
     public void openFD()
@@ -71,7 +81,7 @@ class ICICI implements RBI {
             principal += (principal*ROI)/100;
         }
         fdBalance = principal;
-        System.out.println("Matured FD Balance is : " +fdBalance);
+        log.log(Level.INFO, "Matured FD Balance is : " +fdBalance);
     }
     @Override
     public void applyLoan() {//APPLY P*R*T)/100 AND give 1% to RBI;
@@ -119,7 +129,7 @@ class ICICI implements RBI {
 
             float interest = amount * ROI * (float) years;
             float rbiPay = loanROI * interest;
-            System.out.println("Amount payable to rbi = " + rbiPay);
+            log.log(Level.INFO,"Amount payable to rbi = " + rbiPay);
         }
     }
     @Override
